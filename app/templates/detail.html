@@ -1,0 +1,13 @@
+<div class="jumbotron text-center">
+  <h1>{{cityData.name}} Weather</h1>
+  <h4>Click on links for additional details</h4>
+</div>
+<div class="row">
+  <ul class="weatherDeatails">
+    <li>{{cityData.weather[0].description}}</li>
+    <li>Temp: {{cityData.main.temp-273.15 | number:0}}&deg;</li>
+    <li>Hi Temp: {{cityData.main.temp_max-273.15 | number:0}}&deg;</li>
+    <li>Low Temp: {{cityData.main.temp_min-273.15 | number:0}}&deg;</li>
+    <li>Humidity: {{cityData.main.humidity}}%</li>
+  </ul>
+</div>

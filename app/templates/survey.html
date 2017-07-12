@@ -1,0 +1,27 @@
+<div class="jumbotron text-center">
+  <h1>Enter Weather Information for Your Location</h1>
+</div>
+
+<div class="form">
+  <form class="WeatherForm" name="WeatherForm">
+    <div class="row">
+      <label for="CurrentTemp">Current Temp: </label>
+      <input ng-required="true" class="weatherInput" type="text" name="CurrentTemp" ng-model="weatherInfo.currentTemp">
+    </div>
+    <div class="row">
+      <label for="Description">Description: </label>
+      <input class="weatherInput" type="text" name="Description" ng-model="weatherInfo.description">
+    </div>
+    <div class="row">
+      <label for="Humidity">Humidity: </label>
+      <input class="weatherInput" type="text" name="Humidity" ng-model="weatherInfo.humidity">
+    </div>
+    <div class="row">
+      <label for="RainChance">Chance of Rain: </label>
+      <input class="weatherInput" type="text" name="RainChance" ng-model="weatherInfo.rainChance">
+    </div>
+    <div class="row">
+      <button ng-click="submit(WeatherForm)" type="button" name="button">Submit</button>
+    </div>
+  </form>
+</div>
