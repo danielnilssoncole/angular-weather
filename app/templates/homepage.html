@@ -3,10 +3,12 @@
   <h4>Click on links for additional details</h4>
 </div>
 <div class="row weather" ng-repeat="details in weatherData.list">
-  <ul class="weatherDeatails">
-    <li class="weatherDetailsListItem">City: <a href="" ng-click="goToDetailView(details.id)">{{details.name}}</a></li>
-    <li class="weatherDetailsListItem">Lattitude: {{details.coord.lat}}</li>
-    <li class="weatherDetailsListItem">Longitude: {{details.coord.lon}}</li>
-    <li class="weatherDetailsListItem">Temp: {{details.main.temp}}</li>
-  </ul>
+  <city-weather-details></city-weather-details>
 </div>
+<!-- <div city-weather-details class="coolClass"></div> -->
+<div class="myDom" my-dom-manipulator>
+  Click Me!
+</div>
+
+<isolated-scope name-attr={{customer.name}} datasource="customer" ng-click="changeData()"></isolated-scope>
+<!-- strings need to be 2way bound, objects do not  -->
