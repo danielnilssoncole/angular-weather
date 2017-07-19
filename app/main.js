@@ -131,3 +131,63 @@ myApp.directive('isolatedScope', function() {
     template: '<ul><li ng-repeat="prop in datasource">{{prop}}</li></ul> ' + '<button ng-click="action()">Change Data</button>'
   }
 })
+
+myApp.directive('isolatedScopeWithTransclusion', function () {
+  return {
+    restrict: 'E',
+    transclude: true,
+    replace: true,
+    scope: {
+      tasks: '='
+    },
+    controller: function($scope) {
+      $scope.addTask = function () {
+        if (!$scope.tasks) $scope.tasks = [];
+        $scope.tasks.push({
+          title: $scope.title
+        });
+      };
+    },
+    template: '<div>Name: <input type="text" ng-model="title" />&nbsp;' +
+                  '<button ng-click="addTask()">Add Task</button>' +
+                  '<div class="taskContainer"><br />' +
+                     '<ng-transclude></ng-transclude>' +
+                  '</div></div>'
+  };
+});
+
+myApp.directive('isolateScopeWithController', function () {
+  var controller = ['$scope', function($scope) {
+    function init() {
+      $scope.items = angular.copy($scope.datasource);
+    }
+
+    init();
+
+    $scope.sayHello = function () {
+      window.console.log('Hello!');
+    }
+
+    $scope.addItem = function () {
+      $scope.add();
+
+      $scope.items.push({
+        name: $scope.newCustomer
+      });
+      $scope.newCustomer = null;
+    };
+  }],
+
+  template = '<button ng-click="addItem()">Add Item</button><input type="text" ng-change="sayHello()" ng-model="newCustomer"><ul>' +
+  '<li ng-repeat="item in items">{{::item.name}}</li></ul>';
+
+  return {
+    restrict: 'EA',
+    scope: {
+      datasource: '=',
+      add: '&'
+    },
+    controller: controller,
+    template: template
+  };
+});

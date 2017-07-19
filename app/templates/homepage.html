@@ -12,3 +12,13 @@
 
 <isolated-scope name-attr={{customer.name}} datasource="customer" ng-click="changeData()"></isolated-scope>
 <!-- strings need to be 2way bound, objects do not  -->
+<br>
+<isolated-scope-with-transclusion>
+  <div class="" ng-repeat="task in tasks track by $index">
+    <strong>{{task.title}}</strong>
+  </div>
+</isolated-scope-with-transclusion>
+
+<isolate-scope-with-controller datasource="customers" add="addCustomer()">
+
+</isolate-scope-with-controller>
