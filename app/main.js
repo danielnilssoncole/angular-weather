@@ -19,12 +19,17 @@ myApp.config(function($routeProvider) {
   })
 })
 
-myApp.controller('mainController', function($scope, $http, $route, $location) {
+myApp.controller('mainController', function($scope, $route, $location, WeatherService, WeatherServiceFactoryMethod) {
   $scope.weatherData = {};
-  $http({
-    method: 'GET',
-    url: 'http://api.openweathermap.org/data/2.5/group?id=524901,703448,2643743&units=metric&APPID=8aa65468f08e0a905a1c610bd074fbed',
-  }).then(res => $scope.weatherData = res.data).catch(err => window.alert(err.statusText));
+  let _wsvc = WeatherService;
+  let _wsfm = WeatherServiceFactoryMethod
+  // _wsvc.getWeatherForGroupOfCities()
+  //   .then(res => $scope.weatherData = res.data)
+  //   .catch(err => window.alert(err.statusText))
+
+  _wsfm.getWeatherForGroupOfCities()
+    .then(res => $scope.weatherData = res.data)
+    .catch(err => window.alert(err.statusText))
 
   $scope.goToDetailView = (id) => {
     $location.path(`/detail/${id}`);
@@ -191,3 +196,13 @@ myApp.directive('isolateScopeWithController', function () {
     template: template
   };
 });
+
+myApp.service('WeatherService', function ($http) {
+  this.getWeatherForGroupOfCities = () => $http.get('http://api.openweathermap.org/data/2.5/group?id=524901,703448,2643743&units=metric&APPID=8aa65468f08e0a905a1c610bd074fbed');
+})
+
+myApp.factory('WeatherServiceFactoryMethod', function($http) {
+  return {
+    getWeatherForGroupOfCities: () => $http.get('http://api.openweathermap.org/data/2.5/group?id=524901,703448,2643743&units=metric&APPID=8aa65468f08e0a905a1c610bd074fbed')
+  }
+})
